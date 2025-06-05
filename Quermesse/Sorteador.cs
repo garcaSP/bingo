@@ -53,5 +53,46 @@ namespace Quermesse
 
             lblNumero.Text = num.ToString();
         }
+
+        
+
+        public void AnunciarVitoria(Cartela cartela)
+        {
+            foreach(Cartela c in cartelas)
+            {
+                if(c != cartela)
+                {
+                    c.Close();
+                }
+                cartela.Focus();
+                btProximo.Enabled = false;
+            }
+        }
+
+        private void btHistorico_Click(object sender, EventArgs e)
+        {
+            FormHistorico f = new FormHistorico(sorteados);
+            f.ShowDialog();
+        }
+
+        private void Sorteador_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult r = MessageBox.Show("Deseja encerrar esse sorteio?",
+                "Sorteador", MessageBoxButtons.YesNo);
+            if (r == DialogResult.Yes)
+            { 
+                foreach (Cartela cartela in cartelas)
+                    cartela.Close();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void btCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

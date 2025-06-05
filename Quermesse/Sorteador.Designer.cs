@@ -42,6 +42,7 @@
             this.btHistorico.TabIndex = 0;
             this.btHistorico.Text = "Historico sorteado";
             this.btHistorico.UseVisualStyleBackColor = true;
+            this.btHistorico.Click += new System.EventHandler(this.btHistorico_Click);
             // 
             // btCancelar
             // 
@@ -51,6 +52,7 @@
             this.btCancelar.TabIndex = 1;
             this.btCancelar.Text = "Cancelar";
             this.btCancelar.UseVisualStyleBackColor = true;
+            this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
             // 
             // btProximo
             // 
@@ -81,6 +83,7 @@
             this.Controls.Add(this.btHistorico);
             this.Name = "Sorteador";
             this.Text = "Sorteador";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sorteador_FormClosing);
             this.ResumeLayout(false);
 
         }

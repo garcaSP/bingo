@@ -13,9 +13,9 @@ namespace Quermesse
     public partial class Cartela : Form
     {
         Sorteador sorteador;
-        int id;
+        public int id;
+        int sorteados = 0;
         int[][] numeros;
-        int[][] intervalos;
         Label[][] posicoes;
         public Cartela(Sorteador sorteador, int id)
         {
@@ -29,14 +29,6 @@ namespace Quermesse
                 new int[5],
                 new int[5],
                 new int[5]
-            };
-            intervalos = new int[5][]
-            {
-                new int[] { 1, 15 },
-                new int[] { 16, 30 },
-                new int[] { 31, 45 },
-                new int[] { 46, 60 },
-                new int[] { 61, 75 }
             };
             posicoes = new Label[5][]
             {
@@ -56,28 +48,24 @@ namespace Quermesse
 
         void CriarCartela()
         {
-
-            int nSorteados = 0;
             Random r = new Random();
-            while(nSorteados < 25)
+            for(int i = 0; i < 5; i++)
             {
-                for(int i = 0; i < 5; i++)
+                for(int j = 0; j < 5; j++)
                 {
-                    for(int j = 0; j < 5; j++)
+                    if (!(i == j && i == 2))
                     {
-                        int n = r.Next(intervalos[i][0], intervalos[i][1] + 1);
+                        int n = r.Next(1, 16) + i * 15;
                         numeros[i][j] = n;
                         posicoes[i][j].Text = n.ToString();
-                        nSorteados++;
                     }
                 }
-            }
+             }
         }
 
         public void ReceberNumero(int numero)
         {
-            int i;
-            for (i = 0; i < 5 && !(numero >= intervalos[i][0] && numero <= intervalos[i][1]); i++) ;
+            int i = (numero - 1) / 15;
 
             int j;
             for(j = 0; j < 5; j++)
@@ -85,7 +73,13 @@ namespace Quermesse
                 if (numeros[i][j] == numero)
                 {
                     posicoes[i][j].BackColor = Color.Green;
+                    sorteados++;
                     
+                    if(sorteados == 24)
+                    {
+                        lblVitória.Visible = true;
+                        sorteador.AnunciarVitoria(this);
+                    }
                 }
             }
         }
