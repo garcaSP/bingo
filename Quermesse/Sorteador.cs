@@ -31,7 +31,7 @@ namespace Quermesse
 
             for (int i = 0; i < qtd; i++)
             {
-                // Aqui a resenha dos papáveis é instaurada pelo Aluno Gabriel Coimbra Sulzbacher
+                // Aqui a resenha dos papáveis é instaurada
                 cartelas[i] = new Cartela(this, i);
                 cartelas[i].Show();
 

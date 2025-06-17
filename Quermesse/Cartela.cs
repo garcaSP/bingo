@@ -16,12 +16,15 @@ namespace Quermesse
         public int id;
         int sorteados = 0;
         int[][] numeros;
+        int[] escolhidos;
+        int tamEscolhidos = 0;
         Label[][] posicoes;
         public Cartela(Sorteador sorteador, int id)
         {
             InitializeComponent();
             this.sorteador = sorteador;
             this.id = id;
+            escolhidos = new int[25];
             numeros = new int[5][]
             {
                 new int[5],
@@ -56,7 +59,19 @@ namespace Quermesse
                     if (!(i == j && i == 2))
                     {
                         int n = r.Next(1, 16) + i * 15;
+                        while(Array.IndexOf(escolhidos, n) > -1)
+                        {
+                            n++;
+                            if(n > (i+1) * 15)
+                            {
+                                n -= 15;
+                            }
+                        }
                         numeros[i][j] = n;
+
+                        escolhidos[tamEscolhidos] = n;
+                        tamEscolhidos++;
+
                         posicoes[i][j].Text = n.ToString();
                     }
                 }
